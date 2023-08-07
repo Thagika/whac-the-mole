@@ -1,11 +1,14 @@
 let currMoleTile;
 let currPlantTile;
 let score = 0;
+let highScore = localStorage.getItem('highScore');
 let gameOver = false;
 
 window.onload = function() {
+    document.getElementById("highScore").innerText = highScore;
     setGame();
 }
+
 
 function setGame() {
     //set up the grid in html
@@ -46,7 +49,10 @@ function setMole() {
 
 function setPlant() {
     if (gameOver) {
+        console.log(score);
+        localStorage.setItem('highScore' , score.toString());
         return;
+
     }
     if (currPlantTile) {
         currPlantTile.innerHTML = "";
@@ -69,6 +75,7 @@ function selectTile() {
     if (this == currMoleTile) {
         score += 10;
         document.getElementById("score").innerText = score.toString(); 
+     
     }
     else if (this == currPlantTile) {
         document.getElementById("score").innerText = "GAME OVER: " + score.toString(); 
